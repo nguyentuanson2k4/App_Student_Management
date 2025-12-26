@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F5F5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- NOTE: Toolbar Material -->
+    <include layout="@layout/layout_toolbar"/>
+
+    <TextView
+        android:text="HỆ THỐNG QUẢN LÝ SINH VIÊN"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- NOTE: Card Quản lý sinh viên -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_margin="8dp"
+        app:cardElevation="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnStudent"
+            android:text="📘 Quản lý sinh viên"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- NOTE: Card Quản lý điểm -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_margin="8dp"
+        app:cardElevation="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnScore"
+            android:text="📊 Quản lý điểm"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

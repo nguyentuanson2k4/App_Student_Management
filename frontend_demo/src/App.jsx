@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
 import StudentScores from "./pages/StudentScores";
+import SubjectPage from './pages/SubjectPage';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
           />
 
           <Route path="/students/:code/scores" element={<StudentScores />} />
+
+          <Route path="/subjects" element={<SubjectPage />} />
 
           <Route
             path="*"

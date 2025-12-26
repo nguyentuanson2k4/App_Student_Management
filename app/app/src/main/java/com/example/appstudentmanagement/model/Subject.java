@@ -1,4 +1,4 @@
-package com.example.appstudentmanagement;
+package com.example.appstudentmanagement.model;
 
 public class Subject {
     public String subject_code;

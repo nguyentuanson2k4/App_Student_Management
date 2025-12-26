@@ -1,49 +1,44 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Scores', {
+    await queryInterface.createTable('scores', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      midterm: {
-        type: Sequelize.DECIMAL(5, 2)
-      },
-      final: {
-        type: Sequelize.DECIMAL(5, 2)
-      },
-      total: {
-        type: Sequelize.DECIMAL(5, 2)
-      },
-      term: {
-        type: Sequelize.STRING
-      },
-      year: {
-        type: Sequelize.INTEGER
-      },
+
       student_code: {
         type: Sequelize.STRING,
         allowNull: false,
         references: {
-          model: 'Students',
+          model: 'students',
           key: 'student_code'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
+
       subject_code: {
         type: Sequelize.STRING,
         allowNull: false,
         references: {
-          model: 'Subjects',
+          model: 'subjects',
           key: 'subject_code'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
+
+      midterm: Sequelize.DECIMAL(5, 2),
+      final: Sequelize.DECIMAL(5, 2),
+      total: Sequelize.DECIMAL(5, 2),
+      term: Sequelize.STRING,
+      year: Sequelize.INTEGER,
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -54,7 +49,8 @@ module.exports = {
       }
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Scores');
+
+  async down(queryInterface) {
+    await queryInterface.dropTable('scores');
   }
 };

@@ -1,5 +1,7 @@
-package com.example.appstudentmanagement;
+package com.example.appstudentmanagement.model;
+
 import com.google.gson.annotations.SerializedName;
+
 public class Score {
     public String midterm;
     @SerializedName("final")
@@ -7,6 +9,5 @@ public class Score {
     public String total;
     public String term;
     public int year;
-
     public Subject subject;
 }
