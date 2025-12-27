@@ -7,8 +7,7 @@ import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import AddSubject from "@/components/AddSubject"; 
 import SubjectList from "@/components/SubjectList"; 
-import StudentListPagination from "@/components/StudentListPagination"; 
-import DateTimeFilter from "@/components/DateTimeFilter";
+import StudentListPagination from "@/components/StudentListPagination";
 
 
 const SubjectPage = () => {

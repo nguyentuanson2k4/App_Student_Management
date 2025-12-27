@@ -14,8 +14,6 @@ const AddSubject = ({ handleSubjectAdded, editData, onCancelEdit }) => {
         subject_code: "",
         name: "",
         credit: "",
-        teacher: "",
-        description: "",
     });
 
     // Theo dõi khi có dữ liệu sửa truyền vào từ Component cha
@@ -25,8 +23,6 @@ const AddSubject = ({ handleSubjectAdded, editData, onCancelEdit }) => {
                 subject_code: editData.subject_code || "",
                 name: editData.name || "",
                 credit: editData.credits || editData.credit || "",
-                teacher: editData.teacher || "",
-                description: editData.description || "",
             });
             // Cuộn lên đầu trang mượt mà khi bấm sửa
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -139,28 +135,6 @@ const AddSubject = ({ handleSubjectAdded, editData, onCancelEdit }) => {
                         name="credit"
                         placeholder="VD: 3"
                         value={form.credit}
-                        onChange={handleChange}
-                        className="bg-white/50"
-                    />
-                </div>
-
-                <div className="space-y-1">
-                    <label className="text-sm font-medium text-gray-600 ml-1">Giảng viên</label>
-                    <Input
-                        name="teacher"
-                        placeholder="Tên giảng viên..."
-                        value={form.teacher}
-                        onChange={handleChange}
-                        className="bg-white/50"
-                    />
-                </div>
-
-                <div className="space-y-1 sm:col-span-2">
-                    <label className="text-sm font-medium text-gray-600 ml-1">Mô tả</label>
-                    <Input
-                        name="description"
-                        placeholder="Mô tả ngắn gọn về môn học"
-                        value={form.description}
                         onChange={handleChange}
                         className="bg-white/50"
                     />
