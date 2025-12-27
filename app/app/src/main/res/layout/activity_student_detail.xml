@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <!-- TOOLBAR -->
+    <include layout="@layout/layout_toolbar" />
+
+    <!-- SCROLL CONTENT -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <!-- HEADER với background gradient -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingVertical="32dp"
+                android:paddingHorizontal="24dp"
+                android:background="@drawable/bg_header_gradient">
+
+                <!-- Avatar với shadow -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avatar_default"
+                    android:elevation="8dp"
+                    app:shapeAppearanceOverlay="@style/CircleImage"
+                    app:strokeColor="@android:color/white"
+                    app:strokeWidth="3dp" />
+
+                <!-- Tên sinh viên -->
+                <TextView
+                    android:id="@+id/txtStudentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tên sinh viên"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <!-- Mã sinh viên -->
+                <TextView
+                    android:id="@+id/txtStudentCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mã SV"
+                    android:textColor="@color/white_alpha_80"
+                    android:textSize="16sp"
+                    android:layout_marginTop="6dp" />
+
+            </LinearLayout>
+
+            <!-- CARD THÔNG TIN được nâng lên -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="-30dp"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@color/gray_200"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <!-- Tiêu đề section -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="12dp"
+                        android:text="Thông tin cá nhân"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <!-- Sử dụng LinearLayout thay thế GridLayout -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Giới tính -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Giới tính"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/txtGender"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text=""
+                                android:textColor="@color/text_primary"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <!-- Ngày sinh -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Ngày sinh"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/txtDob"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text=""
+                                android:textColor="@color/text_primary"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <!-- Email -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Email"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/txtEmail"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text=""
+                                android:textColor="@color/primary"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                        <!-- Số điện thoại -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Điện thoại"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/txtPhone"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text=""
+                                android:textColor="@color/text_primary"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

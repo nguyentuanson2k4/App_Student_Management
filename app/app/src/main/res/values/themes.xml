@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- NOTE: Theme Material Design 3, không dùng ActionBar mặc định -->
+    <style name="Theme.AppStudentManagement"
+        parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- NOTE: Màu chủ đạo -->
+        <item name="colorPrimary">#1976D2</item>
+        <item name="colorSecondary">#03DAC5</item>
+
+        <!-- NOTE: Màu status bar -->
+        <item name="android:statusBarColor">#1976D2</item>
+    </style>
+
+</resources>
