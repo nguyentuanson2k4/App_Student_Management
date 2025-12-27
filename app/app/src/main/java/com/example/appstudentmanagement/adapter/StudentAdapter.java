@@ -6,10 +6,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.bumptech.glide.Glide;
 import com.example.appstudentmanagement.*;
 import com.example.appstudentmanagement.model.Student;
+import com.google.android.material.imageview.ShapeableImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHolder> {
 
@@ -22,10 +25,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         this.context = context;
         this.list = list;
         this.targetActivity = targetActivity;
-        this.fullList = new ArrayList<>();
+        this.fullList = new ArrayList<>(list);
     }
 
-    // UPDATE DATA SAU KHI LOAD API
     public void setData(List<Student> newList) {
         list.clear();
         list.addAll(newList);
@@ -48,7 +50,30 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder h, int position) {
         Student s = list.get(position);
         h.txtName.setText(s.getName());
-        h.txtCode.setText("Mã SV: " + s.getStudentCode());
+        h.txtCode.setText(s.getStudentCode());
+
+        // Map gender
+        String gender = mapGender(s.getGender());
+        h.txtGender.setText(gender);
+
+        // Email
+        String email = s.getEmail();
+        if (email != null && email.length() > 20) {
+            email = email.substring(0, 20) + "...";
+        }
+        h.txtEmail.setText(email != null ? email : "Chưa có email");
+
+        // Load avatar
+        if (s.getAvatarUrl() != null && !s.getAvatarUrl().isEmpty()) {
+            Glide.with(context)
+                    .load(s.getAvatarUrl())
+                    .placeholder(R.drawable.avatar_default)
+                    .error(R.drawable.avatar_default)
+                    .circleCrop()
+                    .into(h.imgAvatar);
+        } else {
+            h.imgAvatar.setImageResource(R.drawable.avatar_default);
+        }
 
         // CLICK ĐẾN CHI TIẾT
         h.itemView.setOnClickListener(v -> {
@@ -63,12 +88,28 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     public int getItemCount() {
         return list.size();
     }
+
+    private String mapGender(String g) {
+        if (g == null) return "Không rõ";
+        switch (g) {
+            case "M": return "Nam";
+            case "F": return "Nữ";
+            case "O": return "Khác";
+            default: return g;
+        }
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtName, txtCode;
+        ShapeableImageView imgAvatar;
+        TextView txtName, txtCode, txtGender, txtEmail;
+
         ViewHolder(View v) {
             super(v);
+            imgAvatar = v.findViewById(R.id.imgAvatar);
             txtName = v.findViewById(R.id.txtName);
             txtCode = v.findViewById(R.id.txtCode);
+            txtGender = v.findViewById(R.id.txtGender);
+            txtEmail = v.findViewById(R.id.txtEmail);
         }
     }
 
@@ -83,8 +124,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
             for (Student s : fullList) {
                 String name = s.getName() == null ? "" : s.getName().toLowerCase();
                 String code = s.getStudentCode() == null ? "" : s.getStudentCode().toLowerCase();
+                String email = s.getEmail() == null ? "" : s.getEmail().toLowerCase();
 
-                if (name.contains(key) || code.contains(key)) {
+                if (name.contains(key) || code.contains(key) || email.contains(key)) {
                     list.add(s);
                 }
             }

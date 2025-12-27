@@ -67,12 +67,12 @@ public class StudentDetailActivity extends AppCompatActivity {
 
                         Student s = response.body();
 
-                        txtCode.setText("Mã SV: " + safe(s.getStudentCode()));
-                        txtName.setText("Tên: " + safe(s.getName()));
-                        txtGender.setText("Giới tính: " + mapGender(s.getGender()));
-                        txtDob.setText("Ngày sinh: " + formatDate(s.getDob()));
-                        txtEmail.setText("Email: " + safe(s.getEmail()));
-                        txtPhone.setText("SĐT: " + safe(s.getPhone()));
+                        txtCode.setText(safe(s.getStudentCode()));
+                        txtName.setText(safe(s.getName()));
+                        txtGender.setText(mapGender(s.getGender()));
+                        txtDob.setText(formatDate(s.getDob()));
+                        txtEmail.setText(safe(s.getEmail()));
+                        txtPhone.setText(safe(s.getPhone()));
 
                         // LOAD AVATAR (AN TOÀN)
                         if (imgAvatar != null) {

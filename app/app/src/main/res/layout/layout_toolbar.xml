@@ -4,8 +4,8 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
+    android:background="@color/primary"
     app:titleTextAppearance="@style/ToolbarTitleBold"
-    android:titleTextColor="@android:color/white"
-    android:navigationIcon="@drawable/ic_back" />
+    app:titleTextColor="@android:color/white"
+    app:navigationIcon="@drawable/ic_back" />
 

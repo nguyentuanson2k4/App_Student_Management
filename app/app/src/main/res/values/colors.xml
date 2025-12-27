@@ -2,4 +2,33 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary colors -->
+    <color name="purple_500">#6750A4</color>
+    <color name="purple_700">#5C469C</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+
+    <!-- App colors -->
+    <color name="primary">#6750A4</color>
+    <color name="primary_dark">#5C469C</color>
+    <color name="secondary">#E8DEF8</color>
+    <color name="background">#F5F5FA</color>
+    <color name="surface">#FFFFFF</color>
+
+    <!-- Text colors -->
+    <color name="text_primary">#1C1B1F</color>
+    <color name="text_secondary">#49454F</color>
+    <color name="text_hint">#79747E</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="white_alpha_80">#CCFFFFFF</color>
+
+    <!-- Status colors -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="error">#F44336</color>
+
+    <!-- UI colors -->
+    <color name="divider">#E6E1E5</color>
 </resources>

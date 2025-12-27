@@ -6,7 +6,6 @@ const SubjectEmptyState = () => {
   return (
     <Card className="p-8 text-center border-0 bg-gradient-card shadow-custom-md">
       <div className="space-y-3">
-        {/* Đổi icon Circle thành BookOpen để phù hợp với môn học */}
         <BookOpen className="mx-auto size-12 text-muted-foreground opacity-50" />
         <div>
           <h3 className="font-medium text-foreground">

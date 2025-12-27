@@ -3,8 +3,12 @@ package com.example.appstudentmanagement.ui;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,77 +30,165 @@ import retrofit2.Response;
 
 public class StudentListActivity extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
     private StudentAdapter adapter;
-    private List<Student> studentList = new ArrayList<>(); // ❗ KHÔNG NULL
+
+    private List<Student> studentList = new ArrayList<>();
+    private List<Student> originalList = new ArrayList<>();
+
+    private LinearLayout layoutEmpty;
+    private TextView txtStudentCount, txtEmptyTitle, txtEmptyMessage;
+    private ImageView imgEmpty;
+    private Button btnRetry;
+    private EditText edtSearch;
+    private ImageView btnClearSearch;
+    private MaterialToolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_list);
 
-        // ===== TOOLBAR + BACK =====
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Danh Sách Sinh Viên");
-        toolbar.setNavigationOnClickListener(v -> finish());
-
-        // ===== RECYCLER VIEW =====
-        RecyclerView recyclerView = findViewById(R.id.recyclerStudents);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // ===== ADAPTER =====
-        adapter = new StudentAdapter(
-                this,
-                studentList,
-                StudentDetailActivity.class
-        );
-        recyclerView.setAdapter(adapter);
-
-        // ===== SEARCH =====
-        EditText edtSearch = findViewById(R.id.edtSearch);
-        edtSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.filter(s.toString());
-            }
-
-            public void beforeTextChanged(CharSequence s,int a,int b,int c){}
-            public void afterTextChanged(Editable s){}
-        });
-
-        // ===== LOAD DATA =====
+        initViews();
+        setupRecyclerView();
+        setupSearch();
         loadStudents();
     }
 
-    // ===== CALL API =====
+    private void initViews() {
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Danh sách sinh viên");
+        toolbar.setNavigationOnClickListener(v -> finish());
+
+        recyclerView = findViewById(R.id.recyclerStudents);
+        layoutEmpty = findViewById(R.id.layoutEmpty);
+
+        txtStudentCount = findViewById(R.id.txtStudentCount);
+        txtEmptyTitle = findViewById(R.id.txtEmptyTitle);
+        txtEmptyMessage = findViewById(R.id.txtEmptyMessage);
+        imgEmpty = findViewById(R.id.imgEmpty);
+        btnRetry = findViewById(R.id.btnRetry);
+
+        edtSearch = findViewById(R.id.edtSearch);
+        btnClearSearch = findViewById(R.id.btnClearSearch);
+    }
+
+    private void setupRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new StudentAdapter(this, studentList, StudentDetailActivity.class);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void setupSearch() {
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                btnClearSearch.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
+                filterStudents(s.toString());
+            }
+        });
+
+        btnClearSearch.setOnClickListener(v -> {
+            edtSearch.setText("");
+            btnClearSearch.setVisibility(View.GONE);
+        });
+    }
+
+    private void filterStudents(String keyword) {
+        studentList.clear();
+
+        if (keyword.isEmpty()) {
+            studentList.addAll(originalList);
+        } else {
+            for (Student s : originalList) {
+                if (s.getName().toLowerCase().contains(keyword.toLowerCase()) ||
+                        s.getStudentCode().toLowerCase().contains(keyword.toLowerCase())) {
+                    studentList.add(s);
+                }
+            }
+        }
+
+        adapter.notifyDataSetChanged();
+        updateUI();
+    }
+
     private void loadStudents() {
-        ApiClient.getClient()
-                .create(ApiService.class)
+        showLoadingState();
+
+        ApiClient.getClient().create(ApiService.class)
                 .getAllStudents()
                 .enqueue(new Callback<List<Student>>() {
 
                     @Override
-                    public void onResponse(Call<List<Student>> call,
-                                           Response<List<Student>> response) {
-
+                    public void onResponse(Call<List<Student>> call, Response<List<Student>> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            adapter.setData(response.body()); // ❗ QUAN TRỌNG
+                            originalList.clear();
+                            originalList.addAll(response.body());
+
+                            studentList.clear();
+                            studentList.addAll(originalList);
+
+                            adapter.notifyDataSetChanged();
+                            updateUI();
                         } else {
-                            Toast.makeText(
-                                    StudentListActivity.this,
-                                    "Không có dữ liệu sinh viên",
-                                    Toast.LENGTH_SHORT
-                            ).show();
+                            showErrorState("Lỗi tải dữ liệu", "Không thể tải danh sách sinh viên");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<Student>> call, Throwable t) {
-                        Toast.makeText(
-                                StudentListActivity.this,
-                                "Lỗi kết nối server",
-                                Toast.LENGTH_SHORT
-                        ).show();
+                        showErrorState("Lỗi kết nối", "Không thể kết nối server");
                     }
                 });
+    }
+
+    private void updateUI() {
+        int count = studentList.size();
+        txtStudentCount.setText(count + " sinh viên");
+        toolbar.setSubtitle(count > 0 ? count + " sinh viên" : null);
+
+        if (count == 0) {
+            showEmptyState(
+                    edtSearch.getText().toString().isEmpty()
+                            ? "Danh sách trống"
+                            : "Không tìm thấy",
+                    edtSearch.getText().toString().isEmpty()
+                            ? "Chưa có sinh viên nào"
+                            : "Không có sinh viên phù hợp"
+            );
+        } else {
+            layoutEmpty.setVisibility(View.GONE);
+        }
+    }
+
+    private void showLoadingState() {
+        layoutEmpty.setVisibility(View.VISIBLE);
+        imgEmpty.setVisibility(View.GONE);
+        btnRetry.setVisibility(View.GONE);
+        txtEmptyTitle.setText("Đang tải dữ liệu...");
+        txtEmptyMessage.setText("Vui lòng chờ");
+    }
+
+    private void showEmptyState(String title, String message) {
+        layoutEmpty.setVisibility(View.VISIBLE);
+        imgEmpty.setVisibility(View.VISIBLE);
+        imgEmpty.setImageResource(R.drawable.ic_empty_student);
+        btnRetry.setVisibility(View.GONE);
+        txtEmptyTitle.setText(title);
+        txtEmptyMessage.setText(message);
+    }
+
+    private void showErrorState(String title, String message) {
+        layoutEmpty.setVisibility(View.VISIBLE);
+        imgEmpty.setVisibility(View.VISIBLE);
+        imgEmpty.setImageResource(R.drawable.ic_error);
+        txtEmptyTitle.setText(title);
+        txtEmptyMessage.setText(message);
+
+        btnRetry.setVisibility(View.VISIBLE);
+        btnRetry.setOnClickListener(v -> loadStudents());
     }
 }

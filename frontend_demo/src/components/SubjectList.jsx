@@ -1,28 +1,3 @@
-// import React from "react";
-// import StudentEmptyState from "./SubjectEmptyState"; 
-// import SubjectCard from "./SubjectCard";
-
-// const SubjectList = ({ subjects, handleSubjectChanged }) => {
-//   if (!subjects || subjects.length === 0) {
-//     // Truyền filter="all" để hiển thị trạng thái trống
-//     return <StudentEmptyState filter="all" />;
-//   }
-
-//   return (
-//     <div className="space-y-3">
-//       {subjects.map((subject, index) => (
-//         <SubjectCard
-//           key={subject.subject_code ?? index}
-//           subject={subject}
-//           index={index}
-//           handleSubjectChanged={handleSubjectChanged}
-//         />
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default SubjectList;
 import React from "react";
 import StudentEmptyState from "./SubjectEmptyState"; 
 import SubjectCard from "./SubjectCard";

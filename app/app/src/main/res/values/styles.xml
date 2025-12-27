@@ -1,24 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="LabelText">
-        <item name="android:textSize">13sp</item>
-        <item name="android:textColor">?android:textColorSecondary</item>
-        <item name="android:layout_marginTop">12dp</item>
+
+    <!-- Base application theme -->
+    <style name="Theme.StudentManagement" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/purple_700</item>
     </style>
 
-    <style name="ValueText">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="android:layout_marginTop">4dp</item>
+    <!-- Toolbar style -->
+    <style name="ToolbarTitleBold" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="CircleImage">
+    <!-- Card style -->
+    <style name="MaterialCardElevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">8dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <!-- Circle image style -->
+    <style name="CircleImage" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="ToolbarTitleBold" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textStyle">bold</item>
+    <!-- Button style -->
+    <style name="ActionButton" parent="Widget.Material3.Button">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_marginHorizontal">16dp</item>
+        <item name="android:layout_marginVertical">8dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="cornerRadius">12dp</item>
     </style>
 
 </resources>
