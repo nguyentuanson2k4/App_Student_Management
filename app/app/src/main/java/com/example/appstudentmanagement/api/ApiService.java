@@ -15,7 +15,7 @@ public interface ApiService {
 
     // 🔥 LẤY SINH VIÊN THEO MÃ
     @GET("api/v1/students/{code}")
-    Call<List<Student>> getStudentByCode(@Path("code") String code);
+    Call<Student> getStudentByCode(@Path("code") String code);
 
     // 🔥 LẤY ĐIỂM THEO MÃ SINH VIÊN
     @GET("api/v1/scores/student/{code}")

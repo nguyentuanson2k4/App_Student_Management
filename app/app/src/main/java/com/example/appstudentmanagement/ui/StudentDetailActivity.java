@@ -53,16 +53,13 @@ public class StudentDetailActivity extends AppCompatActivity {
         ApiClient.getClient()
                 .create(ApiService.class)
                 .getStudentByCode(code)
-                .enqueue(new Callback<List<Student>>() {
+                .enqueue(new Callback<Student>() {
 
                     @Override
-                    public void onResponse(Call<List<Student>> call,
-                                           Response<List<Student>> response) {
+                    public void onResponse(Call<Student> call,
+                                           Response<Student> response) {
 
-                        if (!response.isSuccessful()
-                                || response.body() == null
-                                || response.body().isEmpty()) {
-
+                        if (!response.isSuccessful() || response.body() == null) {
                             Toast.makeText(
                                     StudentDetailActivity.this,
                                     "Không tìm thấy sinh viên",
@@ -71,8 +68,7 @@ public class StudentDetailActivity extends AppCompatActivity {
                             return;
                         }
 
-                        // LẤY SINH VIÊN ĐẦU TIÊN
-                        Student s = response.body().get(0);
+                        Student s = response.body();
 
                         txtCode.setText(safe(s.getStudentCode()));
                         txtName.setText(safe(s.getName()));
@@ -81,7 +77,6 @@ public class StudentDetailActivity extends AppCompatActivity {
                         txtEmail.setText(safe(s.getEmail()));
                         txtPhone.setText(safe(s.getPhone()));
 
-                        // LOAD AVATAR (AN TOÀN)
                         if (imgAvatar != null) {
                             Glide.with(StudentDetailActivity.this)
                                     .load(s.getAvatarUrl())
@@ -92,7 +87,7 @@ public class StudentDetailActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<List<Student>> call, Throwable t) {
+                    public void onFailure(Call<Student> call, Throwable t) {
                         Log.e("API_ERROR", t.getMessage(), t);
                         Toast.makeText(
                                 StudentDetailActivity.this,
