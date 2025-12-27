@@ -113,24 +113,4 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         }
     }
 
-    // SEARCH SINH VIÊN
-    public void filter(String key) {
-        key = key.toLowerCase().trim();
-        list.clear();
-
-        if (key.isEmpty()) {
-            list.addAll(fullList);
-        } else {
-            for (Student s : fullList) {
-                String name = s.getName() == null ? "" : s.getName().toLowerCase();
-                String code = s.getStudentCode() == null ? "" : s.getStudentCode().toLowerCase();
-                String email = s.getEmail() == null ? "" : s.getEmail().toLowerCase();
-
-                if (name.contains(key) || code.contains(key) || email.contains(key)) {
-                    list.add(s);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
 }
